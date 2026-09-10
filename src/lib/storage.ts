@@ -109,19 +109,6 @@ const clearLegacyLibrary = () => {
   }
 };
 
-export const setClerkUserId = (clerkId: string) => {
-  if (typeof window === 'undefined') return;
-  const current = localStorage.getItem(USER_ID_KEY);
-  if (current !== clerkId) {
-    localStorage.setItem(USER_ID_KEY, clerkId);
-    cache = { ...EMPTY_LIBRARY };
-    cacheReady = false;
-    pendingLoad = null;
-    // Notify all subscribers to re-fetch with the new user's data
-    window.dispatchEvent(new Event(STORAGE_SYNC_EVENT));
-  }
-};
-
 const ensureUserId = (): string => {
   if (typeof window === 'undefined') return "ssr-user-id";
   const existing = localStorage.getItem(USER_ID_KEY);

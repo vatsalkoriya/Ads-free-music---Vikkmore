@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs";
 import { Trash2, AlertCircle, ArrowRight } from "lucide-react";
 import { getTrendingMusic } from "@/lib/youtube";
 import { 
@@ -30,8 +29,6 @@ const HomeView = ({ onNavigate }: HomeViewProps) => {
   const [mounted, setMounted] = useState(false);
   const [hasKey, setHasKey] = useState(false);
   const [greetingText, setGreetingText] = useState("");
-
-  const { user, isLoaded, isSignedIn } = useUser();
 
   useEffect(() => {
     setMounted(true);
@@ -104,9 +101,6 @@ const HomeView = ({ onNavigate }: HomeViewProps) => {
     return <div className="p-4 md:p-6 space-y-6 md:space-y-8 h-full bg-background" />;
   }
 
-  // We no longer show a blocked screen, we show sample songs instead
-  // if (!hasKey) { ... }
-
   return (
     <div className="p-4 md:p-6 space-y-6 md:space-y-8 overflow-y-auto scrollbar-thin h-full pb-24 md:pb-6">
       <PageSEO 
@@ -148,8 +142,8 @@ const HomeView = ({ onNavigate }: HomeViewProps) => {
         <section>
           <h2 className="text-lg md:text-xl font-bold text-foreground mb-4">Trending Songs</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-            {SAMPLE_SONGS.map((song) => (
-              <SongCard key={song.id} song={song} queue={SAMPLE_SONGS} skipAuth={true} />
+              {SAMPLE_SONGS.map((song) => (
+                <SongCard key={song.id} song={song} queue={SAMPLE_SONGS} />
             ))}
           </div>
         </section>
@@ -217,7 +211,6 @@ const HomeView = ({ onNavigate }: HomeViewProps) => {
                 song={song} 
                 index={i} 
                 queue={trending} 
-                skipAuth={!hasKey} 
               />
             ))}
           </div>

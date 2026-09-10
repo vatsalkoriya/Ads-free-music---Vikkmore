@@ -1,27 +1,17 @@
 import { Play, X } from "lucide-react";
 import type { Song } from "@/lib/storage";
 import { usePlayer } from "@/context/PlayerContext";
-import { useAuth, useClerk } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 
 interface SongCardProps {
   song: Song;
   queue?: Song[];
-  skipAuth?: boolean;
   onDelete?: () => void;
 }
 
-const SongCard = ({ song, queue, skipAuth, onDelete }: SongCardProps) => {
+const SongCard = ({ song, queue, onDelete }: SongCardProps) => {
   const { playSong } = usePlayer();
-  const { isSignedIn } = useAuth();
-  const { openSignIn } = useClerk();
-  const router = useRouter();
 
   const handleClick = () => {
-    if (!isSignedIn && !skipAuth) {
-      openSignIn();
-      return;
-    }
     playSong(song, queue);
   };
 

@@ -4,8 +4,6 @@ import { isLiked, toggleLike, getPlaylists, addToPlaylist, subscribeToLibraryCha
 import { usePlayer } from "@/context/PlayerContext";
 import { useEffect, useState } from "react";
 
-import { useAuth, useClerk } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 
 interface SongRowProps {
   song: Song;
@@ -13,14 +11,10 @@ interface SongRowProps {
   queue?: Song[];
   onLikeChange?: () => void;
   onDelete?: () => void;
-  skipAuth?: boolean;
 }
 
-const SongRow = ({ song, index, queue, onLikeChange, onDelete, skipAuth }: SongRowProps) => {
+const SongRow = ({ song, index, queue, onLikeChange, onDelete }: SongRowProps) => {
   const { playSong, currentSong } = usePlayer();
-  const { isSignedIn } = useAuth();
-  const { openSignIn } = useClerk();
-  const router = useRouter();
   const [liked, setLiked] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
@@ -55,10 +49,6 @@ const SongRow = ({ song, index, queue, onLikeChange, onDelete, skipAuth }: SongR
   };
 
   const handleClick = () => {
-    if (!isSignedIn && !skipAuth) {
-      openSignIn();
-      return;
-    }
     playSong(song, queue);
   };
 

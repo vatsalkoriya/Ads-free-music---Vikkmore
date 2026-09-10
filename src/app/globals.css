@@ -94,25 +94,6 @@
   display: none;
 }
 
-/* Hide Clerk Development Badge & Branding Safely */
-.cl-devMode, 
-.cl-watermark,
-.cl-footer,
-.cl-footerAction,
-.cl-userButtonPopoverFooter,
-a[href*="clerk.com?utm_source="],
-a[href*="utm_campaign=dev_mode_badge"] {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-
-/* Specific target for the floating Dev Badge wrapper */
-body > div[style*="z-index: 99999"]:last-of-type {
-  display: none !important;
-}
-
 /* Page transitions */
 @keyframes page-enter {
   from {

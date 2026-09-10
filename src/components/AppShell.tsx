@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Music2, X, LogIn, UserPlus, PanelLeft } from "lucide-react";
+import { useState } from "react";
+import { X, PanelLeft } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import PlayerBar from "@/components/PlayerBar"; 
 import YouTubePlayer from "@/components/YouTubePlayer";
@@ -9,21 +9,11 @@ import MediaSession from "@/components/MediaSession";
 import { usePathname, useRouter } from "next/navigation";
 import { InstallPWA } from "@/components/InstallPWA";
 import SEOHead from "@/components/SEOHead";
-import { SignInButton, SignUpButton, Show, UserButton, useUser } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
-import { setClerkUserId } from "@/lib/storage";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { user, isLoaded } = useUser();
-
-  useEffect(() => {
-    if (isLoaded && user?.id) {
-      setClerkUserId(user.id);
-    }
-  }, [isLoaded, user?.id]);
 
   const handleNavigate = (view: string, id?: string) => {
     setIsSidebarOpen(false); 
@@ -57,33 +47,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Show when="signed-out">
-            <div className="flex items-center gap-2">
-              <SignInButton mode="modal">
-                <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10">
-                  <LogIn className="w-4 h-4 mr-2" />
-                  Sign In
-                </Button>
-              </SignInButton>
-              <SignUpButton mode="modal">
-                <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  <UserPlus className="w-4 h-4 mr-2" />
-                  Sign Up
-                </Button>
-              </SignUpButton>
-            </div>
-          </Show>
-          <Show when="signed-in">
-            <UserButton 
-              appearance={{
-                elements: {
-                  userButtonAvatarBox: "w-8 h-8 border border-white/10"
-                }
-              }}
-            />
-          </Show>
-        </div>
       </header>
 
       <div className="flex flex-1 overflow-hidden relative">
