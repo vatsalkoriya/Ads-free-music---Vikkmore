@@ -1,8 +1,8 @@
 export default async function sitemap() {
   const baseUrl = "https://vikkmore.vercel.app";
-  const lastModified = new Date();
+  const lastModified = new Date("2026-09-11T00:00:00.000Z");
 
-  const paths = ["", "/home", "/about", "/settings", "/profile", "/liked", "/search"];
+  const paths = ["", "/about"];
 
   return paths.map((path) => ({
     url: `${baseUrl}${path}`,

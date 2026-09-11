@@ -1,7 +1,6 @@
 {
   "framework": "nextjs",
-  "rewrites": [
-    { "source": "/home", "destination": "/" },
-    { "source": "/", "destination": "/home" }
+  "redirects": [
+    { "source": "/home", "destination": "/", "permanent": true }
   ]
 }
