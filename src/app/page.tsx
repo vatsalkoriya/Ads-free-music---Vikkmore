@@ -1,5 +1,10 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import HomeView from "@/views/HomeView";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
-  redirect("/home");
+  const router = useRouter();
+
+  return <HomeView onNavigate={(path) => router.push(`/${path}`)} />;
 }
